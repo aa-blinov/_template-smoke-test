@@ -1,9 +1,5 @@
 name: house style
 
-# The standard enforced against itself. A rule that the golden repository
-# cannot satisfy is a rule that is wrong, so this workflow is the earliest
-# signal that a change to the standard needs rethinking.
-
 on:
   push:
     branches: [main]
@@ -13,23 +9,17 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: house-style-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   housecheck:
     name: House style
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
+      - uses: aa-blinov/golden-repo/.github/actions/house-style@v1.0.0
         with:
-          python-version: '3.12'
-
-      - name: Check the repository against the standard
-        run: python3 scripts/housecheck.py --strict .
-
-      - name: Unit tests for the checker
-        run: python3 -m unittest discover -s tests -v
+          report: house-style.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: house-style-report
+          path: house-style.json
