@@ -11,7 +11,9 @@ updates:
     # The standard is a dependency too: the group below picks it up.
     groups:
       actions:
-        patterns: ['*']
+        # The standard gets its own pull request: it is a dependency of every
+        # repository, and its bumps are worth reading on their own.
+        patterns: ['*', '!aa-blinov/golden-repo']
 
   - package-ecosystem: pip
     directory: /
