@@ -8,6 +8,7 @@ updates:
     schedule:
       interval: daily
     labels: [dependencies, ci]
+    # The standard is a dependency too: the group below picks it up.
     groups:
       actions:
         patterns: ['*']
