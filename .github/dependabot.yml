@@ -6,7 +6,7 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
+      interval: daily
     labels: [dependencies, ci]
     groups:
       actions:
@@ -15,7 +15,7 @@ updates:
   - package-ecosystem: pip
     directory: /
     schedule:
-      interval: weekly
+      interval: daily
     labels: [dependencies, python]
     groups:
       python:
@@ -24,7 +24,7 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: weekly
+      interval: daily
     labels: [dependencies, javascript]
     groups:
       npm:
@@ -33,7 +33,7 @@ updates:
   - package-ecosystem: gomod
     directory: /
     schedule:
-      interval: weekly
+      interval: daily
     labels: [dependencies, go]
     groups:
       go:
@@ -42,7 +42,7 @@ updates:
   - package-ecosystem: cargo
     directory: /
     schedule:
-      interval: weekly
+      interval: daily
     labels: [dependencies, rust]
     groups:
       cargo:
@@ -51,5 +51,5 @@ updates:
   - package-ecosystem: docker
     directory: /
     schedule:
-      interval: weekly
+      interval: daily
     labels: [dependencies, docker]
