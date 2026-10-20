@@ -1,0 +1,42 @@
+name: ci
+
+# The generic CI shape every repository that adopts the standard carries:
+# install, test, and a build that proves the artefact is produced. Replace
+# the commands with the stack's own; keep the structure.
+#
+# The house-style check lives in its own workflow (house-style.yml) so that a
+# failure of the standard is visibly different from a failure of the code.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check and test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Test
+        # The checker's own tests. The standard has no dependencies, so there
+        # is nothing to install.
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Build
+        # There is nothing to build: the standard is a set of documents and a
+        # script. The check below is what proves the artefact is sound.
+        run: python3 scripts/housecheck.py --strict .
